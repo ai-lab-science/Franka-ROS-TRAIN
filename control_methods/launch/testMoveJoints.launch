@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<launch>
+
+    <include file="$(find franka_control)/launch/franka_control.launch">
+	    <arg name="robot_ip" value="10.0.0.2"/>
+        <arg name="load_gripper" value="true"/>
+    </include>
+
+    <include file="$(find panda_moveit_config)/launch/panda_moveit.launch">
+        <arg name="load_gripper" value="true"/>
+    </include>
+
+    <include file="$(find panda_moveit_config)/launch/moveit_rviz.launch"/>
+
+    <node name="moveJoints" pkg="control_methods" type="moveJoints.py" output="screen"/>
+
+</launch>

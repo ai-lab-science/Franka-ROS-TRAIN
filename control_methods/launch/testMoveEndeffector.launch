@@ -12,6 +12,6 @@
 
     <include file="$(find panda_moveit_config)/launch/moveit_rviz.launch"/>
 
-    <node name="armMove" pkg="control_methods" type="armMove.py" output="screen"/>
+    <node name="moveEndeffector" pkg="control_methods" type="moveEndeffector.py" output="screen"/>
 
 </launch>

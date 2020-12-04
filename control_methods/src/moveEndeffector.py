@@ -21,17 +21,21 @@ if __name__ == '__main__':
                                 moveit_msgs.msg.DisplayTrajectory, queue_size=20)
 
     # Move the robot
-    joint_goal = group.get_current_joint_values()
-    for i in range(7):
-        print(joint_goal[i])
+    print('Before movement robot state: ')
+    print group.get_current_pose().pose
     
-    #joint_goal[0] = 0.0
-    #joint_goal[1] = 0.0
-    #joint_goal[2] = 0.0
-    #joint_goal[3] = 0.0
-    #joint_goal[4] = 0.0
-    #joint_goal[5] = 3.4
-    #joint_goal[6] = 0.0
+    pose_goal = geometry_msgs.msg.Pose()
+    pose_goal.orientation.w = 1.0
+    pose_goal.position.x = 0.4
+    pose_goal.position.y = 0.1
+    pose_goal.position.z = 0.4
 
-    group.go(joint_goal, wait=True)
+    group.set_pose_target(pose_goal)
+    plan = group.go(wait=True)
+    group.stop()
+    group.clear_pose_targets()
+
+    print('After movement robot state: ')
+    print group.get_current_pose().pose
+
     group.stop()
