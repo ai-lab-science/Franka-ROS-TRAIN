@@ -1,4 +1,5 @@
 # Installation instructions:
+Based on [frankaemika](https://frankaemika.github.io/docs/installation_linux.html)
 
 ## Prerequesits:
 
