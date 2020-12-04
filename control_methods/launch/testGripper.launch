@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<launch>
+
+    <include file="$(find franka_gripper)/launch/franka_gripper.launch">
+	    <arg name="robot_ip" value="10.0.0.2"/>
+    </include>
+
+    <node name="gripperHome" pkg="control_methods" type="gripperHome.py" output="screen"/>
+
+</launch>
