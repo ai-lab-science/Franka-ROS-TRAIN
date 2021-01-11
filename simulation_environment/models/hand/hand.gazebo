@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find simulation_environment)/models/hand/parameter.xacro" />
+
+  <!-- Here we have to add some controller! -->
+  <gazebo>
+    <plugin name="force_joint" filename="libforce_joint.so"/>
+  </gazebo>
+
+</robot>

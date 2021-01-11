@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:include filename="$(find simulation_environment)/models/hand/parameter.xacro"/>
+
+  <!-- Define inertia formulas for standard geometries -->
+  <xacro:macro name="box_inertia" params="m x y z">
+      <inertia
+        ixx="${m*(y*y+z*z)/12}" ixy = "0" ixz = "0"
+        iyy="${m*(x*x+z*z)/12}" iyz = "0"
+        izz="${m*(x*x+z*z)/12}"
+      />
+  </xacro:macro>
+
+  <xacro:macro name="cylinder_inertia" params="m r h">
+    <inertia
+      ixx="${m*(3*r*r+h*h)/12}" ixy = "0" ixz = "0"
+      iyy="${m*(3*r*r+h*h)/12}" iyz = "0"
+      izz="${m*r*r/2}"
+    />
+  </xacro:macro>
+
+  <!-- Define a finger part -->
+  <xacro:macro name="finger_part" params="prefix parent part length radius density origin_xyz origin_rpy">
+	  <link name="${prefix}_link_${part}">
+		<!-- <collision name="{prefix}_link_${part}_collision">
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="${radius}" length="${length}"/>
+			</geometry>
+		</collision> -->
+		<visual name="{prefix}_link_${part}_visual">
+			<origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+			<geometry>
+				<cylinder radius="${radius}" length="${length}"/>
+			</geometry>
+		</visual>
+		<inertial>
+			<origin xyz="0 0 ${length/2}" rpy="0 0 0"/>
+			<mass value="${density*length*3.1415*radius*radius}"/>
+			<xacro:cylinder_inertia m="${density*length*3.1415*radius*radius}" r="${radius}" h="${length}"/>
+		</inertial>
+	  </link>
+
+	  <joint name="${prefix}_joint_${part}" type="continuous">
+		  <parent link="${parent}"/>
+		  <child link="${prefix}_link_${part}"/>
+		  <origin xyz="${origin_xyz}" rpy="${origin_rpy}"/>
+	  </joint>
+  </xacro:macro>
+
+  <!-- Define the complete finger -->
+  <xacro:macro name="finger" params="prefix parent length1 length2 length3 radius density base_xyz">
+		<xacro:finger_part prefix="${prefix}" parent="${parent}" part="1" length="${length1}" radius="${radius}" density="${density}" origin_xyz="${base_xyz}" origin_rpy="${-pi/2} 0 0" />
+		<xacro:finger_part prefix="${prefix}" parent="${prefix}_link_1" part="2" length="${length2}" radius="${radius}" density="${density}" origin_xyz="0 0 ${length1}" origin_rpy="0 0 0"/>
+		<xacro:finger_part prefix="${prefix}" parent="${prefix}_link_2" part="3" length="${length3}" radius="${radius}" density="${density}" origin_xyz="0 0 ${length2}" origin_rpy="0 0 0"/>
+  </xacro:macro>
+
+</robot>

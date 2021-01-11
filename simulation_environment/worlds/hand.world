@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<sdf version="1.5">
+  
+    <!-- Let's define a world for simulating the hand -->
+    <world name="hand_world">
+		
+	<!-- Turn gravity off -->
+	<gravity>0</gravity>
+    
+    <!-- Global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include> 
+    
+    <!-- Set up the solver used for simulation -->  
+    <physics name="ode_70iters" type="ode">
+      <real_time_update_rate>1500</real_time_update_rate>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>70</iters>
+        </solver>
+      </ode>
+    </physics>
+
+  </world>
+  
+</sdf>
