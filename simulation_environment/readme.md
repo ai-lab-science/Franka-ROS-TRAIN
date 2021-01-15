@@ -1,4 +1,12 @@
 ### Under current development
+Donwload the git repository into a ROS workspace
+```
+cd ~
+mkdir -p catkin_ws/src
+cd catkin_ws/src
+git clone https://github.com/NRottmann/ROS_PANDA
+```
+Build the workspace without the 
 
 Start the environment using
 ```
