@@ -6,8 +6,10 @@ mkdir -p catkin_ws/src
 cd catkin_ws/src
 git clone https://github.com/NRottmann/ROS_PANDA
 ```
-Build the workspace without the 
-
+Build the workspace without the control_methods package
+```
+catkin_make -DCATKIN_BLACKLIST_PACKAGES="control_methods"
+```
 Start the environment using
 ```
 roslaunch simulation_environment hand.launch
