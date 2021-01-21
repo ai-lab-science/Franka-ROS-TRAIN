@@ -38,8 +38,9 @@
   <xacro:property name="index_r" value="0.01125" />
 
   <!-- thumb -->
-  <xacro:property name="thumb_l1" value="0.0325" />
-  <xacro:property name="thumb_l2" value="0.03" />
-  <xacro:property name="ring_r" value="0.01375" />
+  <xacro:property name="thumb_l1" value="0.055" />
+  <xacro:property name="thumb_l2" value="0.0325" />
+  <xacro:property name="thumb_l3" value="0.03" />
+  <xacro:property name="thumb_r" value="0.01375" />
 
 </robot>

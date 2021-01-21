@@ -30,7 +30,7 @@
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" >
     <remap from="robot_description" to="hand_description" />
   </node>
-  
+
   <!-- Test Multiple Pulisher -->
   <node pkg="simulation_environment" type="dynamic_publisher" name="dynamic_publisher" />
 

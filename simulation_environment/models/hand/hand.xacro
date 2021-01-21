@@ -33,13 +33,17 @@
   </link>
 
   <!-- Add the fingers -->
-  <xacro:finger prefix="pinkie_finger" parent="base_link" length1="${pinkie_l1}"
-      length2="${pinkie_l2}" length3="${pinkie_l3}" radius="${pinkie_r}" density="${density}" base_xyz="${-x_base/2 + pinkie_r} ${y_base/2} 0"/>
-  <xacro:finger prefix="ring_finger" parent="base_link" length1="${ring_l1}"
-      length2="${ring_l2}" length3="${ring_l3}" radius="${ring_r}" density="${density}" base_xyz="${-x_base/2 + 2*pinkie_r + ring_r + 0.002} ${y_base/2} 0"/>
-  <xacro:finger prefix="middle_finger" parent="base_link" length1="${middle_l1}"
-      length2="${middle_l2}" length3="${middle_l3}" radius="${middle_r}" density="${density}" base_xyz="${-x_base/2 + 2*pinkie_r + 2*ring_r + middle_r + 0.003} ${y_base/2} 0"/>
-  <xacro:finger prefix="index_finger" parent="base_link" length1="${index_l1}"
-      length2="${index_l2}" length3="${index_l3}" radius="${index_r}" density="${density}" base_xyz="${x_base/2 - index_r} ${y_base/2} 0"/>
+  <xacro:finger prefix="pinkie_finger" parent="base_link" length1="${pinkie_l1}" length2="${pinkie_l2}" length3="${pinkie_l3}"
+      radius="${pinkie_r}" density="${density}" base_xyz="${-x_base/2 + pinkie_r} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+  <xacro:finger prefix="ring_finger" parent="base_link" length1="${ring_l1}" length2="${ring_l2}" length3="${ring_l3}"
+      radius="${ring_r}" density="${density}" base_xyz="${-x_base/2 + 2*pinkie_r + ring_r + 0.002} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+  <xacro:finger prefix="middle_finger" parent="base_link" length1="${middle_l1}" length2="${middle_l2}" length3="${middle_l3}"
+      radius="${middle_r}" density="${density}" base_xyz="${-x_base/2 + 2*pinkie_r + 2*ring_r + middle_r + 0.003} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+  <xacro:finger prefix="index_finger" parent="base_link" length1="${index_l1}" length2="${index_l2}" length3="${index_l3}"
+      radius="${index_r}" density="${density}" base_xyz="${x_base/2 - index_r} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+
+  <!-- Add the thumb -->
+  <xacro:finger prefix="thumb" parent="base_link" length1="${thumb_l1}" length2="${thumb_l2}" length3="${thumb_l3}"
+      radius="${thumb_r}" density="${density}" base_xyz="${x_base/2 - 0.707*thumb_r} ${-y_base/2 + 0.707*thumb_r} 0" base_rpy="${-pi/2} ${-pi/4} ${-pi/3}"/>
 
  </robot>

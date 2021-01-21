@@ -50,8 +50,8 @@
   </xacro:macro>
 
   <!-- Define the complete finger -->
-  <xacro:macro name="finger" params="prefix parent length1 length2 length3 radius density base_xyz">
-		<xacro:finger_part prefix="${prefix}" parent="${parent}" part="1" length="${length1}" radius="${radius}" density="${density}" origin_xyz="${base_xyz}" origin_rpy="${-pi/2} 0 0" />
+  <xacro:macro name="finger" params="prefix parent length1 length2 length3 radius density base_xyz base_rpy">
+		<xacro:finger_part prefix="${prefix}" parent="${parent}" part="1" length="${length1}" radius="${radius}" density="${density}" origin_xyz="${base_xyz}" origin_rpy="${base_rpy}" />
 		<xacro:finger_part prefix="${prefix}" parent="${prefix}_link_1" part="2" length="${length2}" radius="${radius}" density="${density}" origin_xyz="0 0 ${length1}" origin_rpy="0 0 0"/>
 		<xacro:finger_part prefix="${prefix}" parent="${prefix}_link_2" part="3" length="${length3}" radius="${radius}" density="${density}" origin_xyz="0 0 ${length2}" origin_rpy="0 0 0"/>
   </xacro:macro>

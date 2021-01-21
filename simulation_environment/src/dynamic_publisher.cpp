@@ -7,7 +7,7 @@
 #include <string.h>
 
 // Define String properties
-#define NUMBER_OF_STRING 12
+#define NUMBER_OF_STRING 15
 #define MAX_STRING_SIZE 40
 
 int main(int argc, char **argv)
@@ -24,7 +24,10 @@ int main(int argc, char **argv)
     "pinkie_finger_joint_3",
     "ring_finger_joint_1",
     "ring_finger_joint_2",
-    "ring_finger_joint_3"
+    "ring_finger_joint_3",
+    "thumb_joint_1",
+    "thumb_joint_2",
+    "thumb_joint_3"
   };
 
   // Set up ROS.
