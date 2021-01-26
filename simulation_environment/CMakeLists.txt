@@ -30,5 +30,8 @@ list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")
 add_library(force_joint SHARED src/force_joint.cpp)
 target_link_libraries(force_joint ${Boost_LIBRARIES} ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
 
+add_library(set_imu_data SHARED src/set_imu_data.cpp)
+target_link_libraries(set_imu_data ${Boost_LIBRARIES} ${GAZEBO_LIBRARIES} ${roscpp_LIBRARIES})
+
 add_executable(dynamic_publisher src/dynamic_publisher.cpp)
 target_link_libraries(dynamic_publisher ${catkin_LIBRARIES})
