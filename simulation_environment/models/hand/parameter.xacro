@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- General paramters -->
+  <xacro:property name="pi" value="3.1415" />
+
+  <!-- Parameter for the hand base -->
+  <xacro:property name="x_base" value="0.10" />
+  <xacro:property name="y_base" value="0.08" />
+  <xacro:property name="z_base" value="0.025" />
+  <xacro:property name="m_base" value="1.0" />
+
+  <!-- Density for the fingers -->
+  <xacro:property name="density" value="5000" />
+
+  <!-- pinkie finger -->
+  <xacro:property name="pinkie_l1" value="0.04" />
+  <xacro:property name="pinkie_l2" value="0.025" />
+  <xacro:property name="pinkie_l3" value="0.02" />
+  <xacro:property name="pinkie_r" value="0.010" />
+
+  <!-- ring finger -->
+  <xacro:property name="ring_l1" value="0.045" />
+  <xacro:property name="ring_l2" value="0.0275" />
+  <xacro:property name="ring_l3" value="0.0225" />
+  <xacro:property name="ring_r" value="0.01125" />
+
+  <!-- middle finger -->
+  <xacro:property name="middle_l1" value="0.05" />
+  <xacro:property name="middle_l2" value="0.03" />
+  <xacro:property name="middle_l3" value="0.025" />
+  <xacro:property name="middle_r" value="0.0125" />
+
+  <!-- index finger -->
+  <xacro:property name="index_l1" value="0.045" />
+  <xacro:property name="index_l2" value="0.0275" />
+  <xacro:property name="index_l3" value="0.0225" />
+  <xacro:property name="index_r" value="0.01125" />
+
+  <!-- thumb -->
+  <xacro:property name="thumb_l1" value="0.055" />
+  <xacro:property name="thumb_l2" value="0.0325" />
+  <xacro:property name="thumb_l3" value="0.03" />
+  <xacro:property name="thumb_r" value="0.01375" />
+
+</robot>

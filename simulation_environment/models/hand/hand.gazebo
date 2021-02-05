@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find simulation_environment)/models/hand/parameter.xacro" />
+
+  <!-- Add the method for joint movements -->
+  <gazebo>
+    <plugin name="force_joint" filename="libforce_joint.so"/>
+  </gazebo>
+
+  <!-- Add method for hand movements -->
+  <gazebo>
+    <plugin name="set_imu_data" filename="libset_imu_data.so"/>
+  </gazebo>
+
+
+</robot>

@@ -1,0 +1,49 @@
+<?xml version='1.0'?>
+
+<!-- choose a name space and start xacro -->
+<robot name="hand" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Include controllers, macros and parameters -->
+  <xacro:include filename="$(find simulation_environment)/models/hand/hand.gazebo"/>
+  <xacro:include filename="$(find simulation_environment)/models/hand/macros.xacro"/>
+  <xacro:include filename="$(find simulation_environment)/models/hand/parameter.xacro"/>
+
+  <!-- Define the base link for the hand -->
+  <link name="base_link">
+    <pose>0 0 ${y_base/2} ${pi/2} 0 0</pose>
+    <!-- Define inertial system for the hand base -->
+    <inertial>
+      <mass value="${m_base}"/>
+      <xacro:box_inertia m="${m_base}" x="${x_base}" y="${y_base}" z="${z_base}"/>
+    </inertial>
+    <!-- Define collision sorrounding box -->
+    <!-- <collision name="base_link_collision">
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="${x_base} ${y_base} ${z_base}"/>
+      </geometry>
+    </collision> -->
+    <!-- Define visualization structure -->
+    <visual name="base_link_visual">
+	  <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="${x_base} ${y_base} ${z_base}"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Add the fingers -->
+  <xacro:finger prefix="pinkie_finger" parent="base_link" length1="${pinkie_l1}" length2="${pinkie_l2}" length3="${pinkie_l3}"
+      radius="${pinkie_r}" density="${density}" base_xyz="${-x_base/2 + pinkie_r} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+  <xacro:finger prefix="ring_finger" parent="base_link" length1="${ring_l1}" length2="${ring_l2}" length3="${ring_l3}"
+      radius="${ring_r}" density="${density}" base_xyz="${-x_base/2 + 2*pinkie_r + ring_r + 0.002} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+  <xacro:finger prefix="middle_finger" parent="base_link" length1="${middle_l1}" length2="${middle_l2}" length3="${middle_l3}"
+      radius="${middle_r}" density="${density}" base_xyz="${-x_base/2 + 2*pinkie_r + 2*ring_r + middle_r + 0.003} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+  <xacro:finger prefix="index_finger" parent="base_link" length1="${index_l1}" length2="${index_l2}" length3="${index_l3}"
+      radius="${index_r}" density="${density}" base_xyz="${x_base/2 - index_r} ${y_base/2} 0" base_rpy="${-pi/2} 0 0"/>
+
+  <!-- Add the thumb -->
+  <xacro:finger prefix="thumb" parent="base_link" length1="${thumb_l1}" length2="${thumb_l2}" length3="${thumb_l3}"
+      radius="${thumb_r}" density="${density}" base_xyz="${x_base/2 - 0.707*thumb_r} ${-y_base/2 + 0.707*thumb_r} 0" base_rpy="${-pi/2} ${-pi/4} ${-pi/3}"/>
+
+ </robot>
