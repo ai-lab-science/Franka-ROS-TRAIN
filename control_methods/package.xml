@@ -6,9 +6,18 @@
   <maintainer email="rottmann@rob.uni-luebeck.de">Nils Rottmann, Robin Denz</maintainer>
   <license>Apache 2.0</license>
 
+  <build_depend>message_generation</build_depend>
+  <build_depend>eigen</build_depend>
+
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>libfranka</depend>
+  <depend>moveit_ros_planning_interface</depend>
+  <depend>tf_conversions</depend>
+  <depend>hardware_interface</depend>
+  <depend>franka_gripper</depend>
+  <depend>eigen_conversions</depend>
+  <depend>dynamic_reconfigure</depend>
   <depend>controller_interface</depend>
   <depend>controller_manager</depend>
   <depend>franka_hw</depend>
@@ -22,7 +31,10 @@
   <depend>tf</depend>
 
   <exec_depend>franka_description</exec_depend>
-  <exec_depend>franka_gripper</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>panda_moveit_config</exec_depend>
+  <exec_depend>message_runtime</exec_depend>
+  <exec_depend>franka_control</exec_depend>
   <exec_depend>joint_state_publisher</exec_depend>
   <exec_depend>robot_state_publisher</exec_depend>
 </package>
