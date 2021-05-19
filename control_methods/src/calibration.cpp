@@ -1,9 +1,18 @@
 #include "qr24.h"
-
+#include<vector>
 #include <moveit/move_group_interface/move_group_interface.h>
 #include <moveit/planning_scene_interface/planning_scene_interface.h>
 
 #include <geometry_msgs/PoseStamped.h>
+
+double calibration_poses[4][7] = { 
+  {-0.39, -0.79, 0.34, -2.18, -1.17 ,2.39, 0.14}, 
+  {-0.50, -0.65, -1.16, -1.78, -0.73, 2.25,  0.51}, 
+  {0.09, -0.91, -1.73, -0.43,  -0.24, 2.59, 0.08}, 
+  {1.45, -1.43, -0.13, -1.28, -0.91, 3.18, -0.90}
+};
+
+
 
 int main(int argc, char** argv)
 {
@@ -31,33 +40,41 @@ int main(int argc, char** argv)
   // qmin  -2.8973 -1.7628 -2.8973	-3.0718	-2.8973	-0.0175	-2.8973 rad
   moveit::core::RobotStatePtr current_state;
   std::vector<double> joint_group_positions;
-  for (int i=0; i<3; i++){
+  current_state = move_group.getCurrentState();
+  current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
+  /*for (int i=0; i<7; i++) {
+    ROS_INFO("%f", joint_group_positions[i]);
+  } */ 
+  
+  for (int i=0; i<4; i++){
+    for (int j=0; j<7; j++){
+      // Set the pose
+      current_state = move_group.getCurrentState();
+      current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
+      joint_group_positions[j] = calibration_poses[i][j];
+      move_group.setJointValueTarget(joint_group_positions);
+
+      // Now, we call the planner to compute the plan
+      moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+      bool success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+      ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success ? "" : "FAILED");
+
+      // Move the robot
+      move_group.move();
+
+      // Get the current end effektor pose
+      geometry_msgs::PoseStamped pose = move_group.getCurrentPose();
+      ROS_INFO("%f, %f, %f", pose.pose.position.x, pose.pose.position.y, pose.pose.position.z);
+
+      // Store pose data in the calibration class
+      qr24.storeMeasurement(pose, pose);
+    }
     
-    // Set the pose
-    current_state = move_group.getCurrentState();
-    current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
-    joint_group_positions[i] = -1.0;
-    move_group.setJointValueTarget(joint_group_positions);
-
-    // Now, we call the planner to compute the plan
-    moveit::planning_interface::MoveGroupInterface::Plan my_plan;
-    bool success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-    ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success ? "" : "FAILED");
-
-    // Move the robot
-    move_group.move();
-
-    // Get the current end effektor pose
-    geometry_msgs::PoseStamped pose = move_group.getCurrentPose();
-    ROS_INFO("%f, %f, %f", pose.pose.position.x, pose.pose.position.y, pose.pose.position.z);
-
-    // Store pose data in the calibration class
-    qr24.storeMeasurement(pose, pose);
 
   } 
 
   // Calculate calibration
-  qr24.calculateCalibration();
+  qr24.calculateCalibration(); 
 
   ros::shutdown();
   return 0;
