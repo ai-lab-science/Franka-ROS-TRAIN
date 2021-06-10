@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <launch>
 
+    <include file="$(find vrpn_client_ros)/launch/sample.launch">
+	    <arg name="server" value="141.83.19.237"/>
+    </include>
+
     <arg name="load_gripper" default="false" />  
 
     <include file="$(find franka_control)/launch/franka_control.launch">

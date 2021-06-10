@@ -112,7 +112,7 @@ class MoveTrajectory:
         #plan.joint_trajectory.points[0] = self.prevPlan 
         #self.prevPlan = plan.joint_trajectory.points.pop()
 
-        #print(plan.joint_trajectory.points)
+        print(plan.joint_trajectory.points)
         return plan
 
     def followPlan(self, plan):
@@ -135,13 +135,20 @@ if __name__ == '__main__':
     #downRight = np.array([0.0, 0.1, -0.1])
     #downLeft = np.array([0.0, -0.1, -0.1])
     #square = np.array([upRight, upLeft, downLeft, downRight])
-    circle = createCircleTraj(0.1)
+    #circle = createCircleTraj(0.1)
 
     trajMover = MoveTrajectory()
     trajMover.goToHome()
 
-    for p in circle:
-        plan = trajMover.calcTrajectory([p])
-        trajMover.followPlan(plan)
+    for i in range(100):
+        point = np.array([0.0, 0.1*np.cos(i*2*np.pi/100), 0.1*np.sin(i*2*np.pi/100)])
+        circle.append(point)
+
+        for p in circle:
+            plan = trajMover.calcTrajectory([p])
+            trajMover.followPlan(plan)
+
+    #plan = trajMover.calcTrajectory(circle)
+    #trajMover.followPlan(plan)
 
     #trajMover.goToHome()

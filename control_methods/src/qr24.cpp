@@ -118,6 +118,10 @@ bool QR24::calculateCalibration() {
   if (file.is_open()) {
     file << X << "\n";
     file << Y << "\n";
+    file << "--- OptiTrack ---" << "\n";
+    for (int i=0; i<measurements; i++) file << M[i] << "\n";
+    file << "--- EndEffektor ---" << "\n";
+    for (int i=0; i<measurements; i++) file << N[i] << "\n";
     std::cout << "Saved data!" << std::endl;
   }  
 
