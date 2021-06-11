@@ -21,6 +21,12 @@ private:
   Matrix4d M[ARRAY_SIZE];
   Matrix4d N[ARRAY_SIZE];
 
+  // For Debugging
+  Vector4d QuatM[ARRAY_SIZE];
+  Vector4d QuatN[ARRAY_SIZE];
+  Vector3d PoseM[ARRAY_SIZE];
+  Vector3d PoseN[ARRAY_SIZE];
+
   // The resulting calibration matrices and if calibration has been performed
   bool calibrated;
   Matrix4d X;

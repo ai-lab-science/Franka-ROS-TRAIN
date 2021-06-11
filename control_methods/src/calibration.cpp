@@ -100,7 +100,7 @@ int main(int argc, char** argv)
       ROS_INFO("%f, %f, %f", poseEndeffector.pose.position.x, poseEndeffector.pose.position.y, poseEndeffector.pose.position.z);
 
       // Store pose data in the calibration class
-      qr24.storeMeasurement(handEyeCalibration.getOptiTrackPose(), poseEndeffector);
+      qr24.storeMeasurement(poseEndeffector, handEyeCalibration.getOptiTrackPose());
     
     }
 
