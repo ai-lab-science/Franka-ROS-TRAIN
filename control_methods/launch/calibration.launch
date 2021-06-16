@@ -16,6 +16,6 @@
         <arg name="load_gripper" value="$(arg load_gripper)"/>
     </include>
 
-    <node name="calibration" pkg="control_methods" type="calibration" output="screen"/>
+    <node name="calibration" pkg="control_methods" type="calibration" output="screen" required="true"/>
 
 </launch>

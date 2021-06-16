@@ -7,12 +7,14 @@
 
 #include <geometry_msgs/PoseStamped.h>
 
+const double PI = 3.1415;
+
 // qmax	2.8973	1.7628	2.8973	-0.0698	 2.8973	 3.7525	 2.8973	rad
 // qmin  -2.8973 -1.7628 -2.8973	-3.0718	-2.8973	-0.0175	-2.8973 rad
-double calibration_poses[5][7] = { 
+double calibration_poses[4][7] = { 
       {-0.39, -0.79, 0.34, -2.18, -1.17 ,2.39, 0.14}, 
       {-0.20, -1.0, 0.34, -1.50, -1.50, 2.39, 0.9},
-      {-1.0, -1.0, 0.34, -1.50, -1.50, 2.39, 0.9},
+      // {-1.0, -1.0, 0.34, -1.50, -1.50, 2.39, 0.9},
       {-1.0 , 0.5, -0.3, -1.0 , -2.5, 2, -0.9},
       {0.6 , 0.5, -0.3, -1.0 , -2.5, 2, -0.9} 
 };
@@ -71,7 +73,7 @@ int main(int argc, char** argv)
   current_state = move_group.getCurrentState();
   current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
 
-  for (int i=0; i<5; i++){
+  for (int i=0; i<4; i++){
 
     current_state = move_group.getCurrentState();
     current_state->copyJointGroupPositions(joint_model_group, joint_group_positions);
@@ -79,8 +81,8 @@ int main(int argc, char** argv)
     for (int j=0; j<7; j++){
       // Set the pose
       joint_group_positions[j] = calibration_poses[i][j];
-      move_group.setJointValueTarget(joint_group_positions);
     } 
+    move_group.setJointValueTarget(joint_group_positions);
 
     // Now, we call the planner to compute the plan
     moveit::planning_interface::MoveGroupInterface::Plan my_plan;
@@ -105,6 +107,20 @@ int main(int argc, char** argv)
     }
 
   } 
+
+  // Go back to initial position
+  joint_group_positions[0] = 0;
+  joint_group_positions[1] = -PI/4;
+  joint_group_positions[2] = 0;
+  joint_group_positions[3] = -3*PI/4;
+  joint_group_positions[4] = 0;
+  joint_group_positions[5] = PI/2;
+  joint_group_positions[6] = PI/4;
+  move_group.setJointValueTarget(joint_group_positions);
+  moveit::planning_interface::MoveGroupInterface::Plan my_plan;
+  bool success = (move_group.plan(my_plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+  ROS_INFO_NAMED("tutorial", "Visualizing plan 1 (pose goal) %s", success ? "" : "FAILED");
+  if (success) move_group.move();
 
   // Calculate calibration
   qr24.calculateCalibration(); 

@@ -11,6 +11,7 @@
 #define ARRAY_SIZE 10
 
 using namespace Eigen;
+using namespace std;
 
 class QR24 {
 

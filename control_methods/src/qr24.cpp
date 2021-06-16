@@ -96,12 +96,9 @@ bool QR24::calculateCalibration() {
 
   }
 
-  std::cout << "\n" << "The matrix A:\n" << A << std::endl;
-  std::cout << "\n" << "The vector b:\n" << b << std::endl;
-
   // Solve with QR decomposition
   VectorXd w(24);
-  w = A.fullPivLu().solve(b);
+  w = A.colPivHouseholderQr().solve(b);
 
   // Store solution in matrices
   X = Matrix4d::Zero();
@@ -117,12 +114,23 @@ bool QR24::calculateCalibration() {
   Y.block(2,0,1,4) = w.segment(20,4).transpose();
   Y(3,3) = 1;
 
+  // Orthonormalize the matrices
+  X.block(0,0,3,3) = X.block(0,0,3,3).householderQr().householderQ();
+  Y.block(0,0,3,3) = Y.block(0,0,3,3).householderQr().householderQ();
+
   // Print the results
-  std::cout << "\n" << "The matrix X:\n" << X << std::endl;
-  std::cout << "\n" << "The matrix Y:\n" << Y << std::endl;
+  cout << "\n" << "The matrix X:\n" << X << endl;
+  cout << "\n" << "The matrix Y:\n" << Y << endl;
 
   // Save the data
-  std::ofstream fileSolution("/home/rob/train_ws/src/train_methods/control_methods/config/solution.txt");
+  ofstream file("/home/rob/train_ws/src/train_methods/control_methods/config/base2tracking.txt");
+  if (file.is_open()){
+    file << Y;
+  }  
+
+  // Save the data
+  /*
+  ofstream fileSolution("/home/rob/train_ws/src/train_methods/control_methods/config/solution.txt");
   if (fileSolution.is_open()) {
     fileSolution << "X: Endeffektor to Marker \n";
     fileSolution << X << "\n\n";
@@ -132,11 +140,13 @@ bool QR24::calculateCalibration() {
     for (int i=0; i<measurements; i++) fileSolution << M[i] << "\n\n";
     fileSolution << "N: Tracking System to Marker \n";
     for (int i=0; i<measurements; i++) fileSolution << N[i] << "\n\n";
-    std::cout << "Saved solution data!" << std::endl;
-  }  
+    cout << "Saved solution data!" << endl;
+  }
+  
 
   // Save the data for Debugging
-  std::ofstream fileDebug("/home/rob/train_ws/src/train_methods/control_methods/config/debug.txt");
+  
+  ofstream fileDebug("/home/rob/train_ws/src/train_methods/control_methods/config/debug.txt");
   if (fileDebug.is_open()) {
     fileDebug << "Quat M: Robot's base to endeffector (w,x,y,z) \n";
     for (int i=0; i<measurements; i++) fileDebug << QuatM[i] << "\n\n";
@@ -146,6 +156,9 @@ bool QR24::calculateCalibration() {
     for (int i=0; i<measurements; i++) fileDebug << PoseM[i] << "\n\n";
     fileDebug << "Pose N: Tracking System to Marker (x,y,z) \n";
     for (int i=0; i<measurements; i++) fileDebug << PoseN[i] << "\n\n";
-    std::cout << "Saved debug data!" << std::endl;
-  }  
+    cout << "Saved debug data!" << endl;
+  }
+  */
+  
 }
+
