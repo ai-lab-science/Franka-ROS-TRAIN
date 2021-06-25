@@ -144,8 +144,8 @@ class RemoteControl():
         R_diff = np.matmul(self.R_initial_robot, np.transpose(self.R_initial_marker))
         R_des = np.matmul(R_diff, R_base)
 
-        Q, R = np.linalg.qr(R_des)
-        q = Quaternion(matrix=self.R_initial_robot)
+        Q = self.gram_schmidt(R_des)
+        q = Quaternion(matrix=Q)
 
         self.marker_pose.pose.orientation.w = q[0]; 
         self.marker_pose.pose.orientation.x = q[1]; 
@@ -168,7 +168,31 @@ class RemoteControl():
         return R_base, x_base
 
 
+    # Gram-Schmidt
+    def gram_schmidt(self, R):
 
+        Q =[]  
+
+        # Check if R has full rank
+        assert(np.linalg.matrix_rank(R) == 3)
+
+        # First Vector
+        q = R[0] / np.linalg.norm(R[0])
+        Q.append(q)
+
+        # Second Vector
+        q = R[1] - np.dot(Q[0], R[1]) * Q[0]
+        q = q / np.linalg.norm(q)
+        Q.append(q)
+
+        # Third vector
+        q = R[2]
+        for j in range(0,2):
+            q = q - np.dot(Q[j], R[2]) * Q[j]
+        q = q / np.linalg.norm(q)
+        Q.append(q)
+
+        return np.array(Q)
 
 
 if __name__ == "__main__":

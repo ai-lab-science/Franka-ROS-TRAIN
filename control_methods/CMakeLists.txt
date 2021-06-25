@@ -4,6 +4,7 @@ project(control_methods)
 find_package(catkin REQUIRED COMPONENTS
   moveit_ros_planning_interface
   controller_interface
+  franka_example_controllers
   controller_manager
   franka_hw
   franka_msgs
@@ -25,6 +26,7 @@ catkin_package(
   CATKIN_DEPENDS
     moveit_ros_planning_interface
     controller_interface
+    franka_example_controllers
     franka_hw
     franka_msgs
     geometry_msgs
@@ -46,6 +48,7 @@ include_directories(
 
 add_library(${PROJECT_NAME}
   src/qr24.cpp
+  src/cartesian_impedance_controller.cpp
 )
 
 add_executable(calibration src/calibration.cpp)
