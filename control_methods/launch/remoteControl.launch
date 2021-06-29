@@ -2,12 +2,14 @@
 <launch>
   
   <arg name="robot_ip" default="10.0.0.2" />
-  <arg name="load_gripper" default="false" />
+  <arg name="load_gripper" default="true" />
 
   <include file="$(find franka_control)/launch/franka_control.launch" >
     <arg name="robot_ip" value="$(arg robot_ip)" />
     <arg name="load_gripper" value="$(arg load_gripper)" />
   </include>
+
+  <node name="gripperHome" pkg="control_methods" type="gripperHome.py" output="screen"/>
 
   <rosparam command="load" file="$(find control_methods)/config/train_controller.yaml" />
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="cartesian_impedance_controller"/>

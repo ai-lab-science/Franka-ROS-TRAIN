@@ -30,7 +30,7 @@ class RemoteControl():
         filename = os.path.join(dirname, '../config/base2tracking.txt')
         handEye = np.genfromtxt(filename, dtype=np.double)
         base2tracking = handEye[0:3, 0:3]
-        self.tracking2base = np.transpose(base2tracking)
+        self.tracking2base = base2tracking # np.transpose(base2tracking)
         print('Loaded hand-eye calibration data:')
         print(self.tracking2base) 
 
@@ -130,15 +130,22 @@ class RemoteControl():
         R_base, x_base = self.rotate_tracking2base(R, x)
     
         # Get the current marker object pose, adjust the information, check also the limits
+        """
         self.marker_pose.pose.position.x = max([min([x_base[0] - self.x_initial_marker[0],
                                           self.position_limits[0][1]]),
-                                          self.position_limits[0][0]]) + self.x_initial_robot[0] 
+                                          self.position_limits[0][0]]) + self.x_initial_robot[0]                  
         self.marker_pose.pose.position.y = max([min([x_base[1] - self.x_initial_marker[1],
                                           self.position_limits[1][1]]),
                                           self.position_limits[1][0]]) + self.x_initial_robot[1] 
         self.marker_pose.pose.position.z = max([min([x_base[2] - self.x_initial_marker[2],
                                           self.position_limits[2][1]]),
-                                          self.position_limits[2][0]]) + self.x_initial_robot[2] 
+                                          self.position_limits[2][0]]) + self.x_initial_robot[2]
+                                          """
+
+        self.marker_pose.pose.position.x = x_base[0] - self.x_initial_marker[0] + self.x_initial_robot[0]                  
+        self.marker_pose.pose.position.y = x_base[1] - self.x_initial_marker[1] + self.x_initial_robot[1] 
+        self.marker_pose.pose.position.z = x_base[2] - self.x_initial_marker[2] + self.x_initial_robot[2]
+
 
         # Calculate the rotation
         R_diff = np.matmul(self.R_initial_robot, np.transpose(self.R_initial_marker))

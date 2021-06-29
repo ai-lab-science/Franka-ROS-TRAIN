@@ -114,10 +114,6 @@ bool QR24::calculateCalibration() {
   Y.block(2,0,1,4) = w.segment(20,4).transpose();
   Y(3,3) = 1;
 
-  // Orthonormalize the matrices
-  X.block(0,0,3,3) = X.block(0,0,3,3).householderQr().householderQ();
-  Y.block(0,0,3,3) = Y.block(0,0,3,3).householderQr().householderQ();
-
   // Print the results
   cout << "\n" << "The matrix X:\n" << X << endl;
   cout << "\n" << "The matrix Y:\n" << Y << endl;
