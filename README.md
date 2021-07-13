@@ -20,7 +20,7 @@ Prerequisites are
 - [Ubuntu 18.04](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
 - [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
 
-Also, you require to install libfranka as well as franka_ros. Check out the [wiki](../../wiki/ROS-Franka-Installation-instructions) for further information. For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/). Check out the [wiki](wiki/Setup-of-the-Optitrack-System) for further information.
+Also, you require to install libfranka as well as franka_ros. Check out the [wiki](../../wiki/ROS-Franka-Installation-instructions) for further information. For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/). Check out the [wiki](../../wiki/Setup-of-the-Optitrack-System) for further information.
 
 
 
@@ -64,7 +64,7 @@ We need to find a transformation from the Optitrack coordinate system to the rob
 ...
 ````
 
-and connect the [tracking object](../tree/master/files/cad) to the robot's flange. Now you can start the calibration by sourcing the environment and starting the `calibration.launch` file.
+and connect the [tracking object](../../tree/master/files/cad) to the robot's flange. Make sure that you defined the tracking object as `RigidBody1` object in the Optitrack system. Now you can start the calibration by sourcing the environment and starting the `calibration.launch` file.
 
 ````bash
 cd ~/catkin_ws
@@ -77,4 +77,10 @@ roslaunch franka_ros_train_controllers calibration.launch
 
 
 ## Remote Control <a name="remotecontrol"></a>
+
+For remote control of the Franka Emika robot, just disconnect the [tracking object](../../tree/master/files/cad) from the robot's flange and take it into your hand. Now reconfigure the `remoteControl.launch` such that the correct IP addresses are set (similar as for the `calibration.launch` file). Start the remote control.
+
+````bash
+roslaunch franka_ros_train_controllers remoteControl.launch
+````
 
