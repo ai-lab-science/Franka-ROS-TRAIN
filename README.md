@@ -20,7 +20,7 @@ Prerequisites are
 - [Ubuntu 18.04](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
 - [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
 
-Also, you require to install libfranka as well as franka_ros. Check out the [wiki](wiki/ROS-Franka-Installation-instructions) for further information. For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/). Check out the [wiki](wiki/Setup-of-the-Optitrack-System) for further information.
+Also, you require to install libfranka as well as franka_ros. Check out the [wiki](../../wiki/ROS-Franka-Installation-instructions) for further information. For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/). Check out the [wiki](wiki/Setup-of-the-Optitrack-System) for further information.
 
 
 
