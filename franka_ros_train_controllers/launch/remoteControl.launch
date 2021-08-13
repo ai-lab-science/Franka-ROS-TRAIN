@@ -9,12 +9,12 @@
     <arg name="load_gripper" value="$(arg load_gripper)" />
   </include>
 
-  <node name="gripperHome" pkg="control_methods" type="gripperHome.py" output="screen"/>
+  <node name="gripperHome" pkg="franka_ros_train_controllers" type="gripperHome.py" output="screen"/>
 
-  <rosparam command="load" file="$(find control_methods)/config/train_controller.yaml" />
+  <rosparam command="load" file="$(find franka_ros_train_controllers)/config/train_controller.yaml" />
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="cartesian_impedance_controller"/>
 
-  <node name="optitrack_marker" pkg="control_methods" type="remoteControl.py" required="true" output="screen">
+  <node name="optitrack_marker" pkg="franka_ros_train_controllers" type="remoteControl.py" required="true" output="screen">
     <param name="link_name" value="panda_link0" />
   </node>
 

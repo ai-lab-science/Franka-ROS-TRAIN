@@ -5,7 +5,7 @@
         <arg name="robot_ip" value="10.0.0.2"/>
     </include>
 
-    <node name="gripperHome" pkg="control_methods" type="gripperHome.py" output="screen"/>
+    <node name="gripperHome" pkg="franka_ros_train_controllers" type="gripperHome.py" output="screen"/>
 
 
 </launch>

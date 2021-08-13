@@ -155,6 +155,7 @@ bool QR24::calculateCalibration() {
     cout << "Saved debug data!" << endl;
   }
   */
+ return true;
   
 }
 
