@@ -20,8 +20,15 @@ Prerequisites are
 - [Ubuntu 20.04](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
 - [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu)
 
-Also, you require to install libfranka as well as franka_ros. Check out the offcial [webpage](https://frankaemika.github.io/docs/installation_linux.html) for further information. For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/). Check out the [wiki](../../wiki/Setup-of-the-Optitrack-System) for further information.
-
+Also, you require to install libfranka as well as franka_ros. Check out the offcial [webpage](https://frankaemika.github.io/docs/installation_linux.html) for further information. You will notice that the instructions require you to install a [realtime kernel](https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/). Therefore checkout your current kernel version with
+```bash
+uname -r
+```
+and choose a realtime kernel closest to your current one. The kernel version and major revision number should be the same. Also, since kernel version 5, you require to set 
+```
+CONFIG_SYSTEM_TRUSTED_KEYS=""
+```
+within the hidden .config file within your realtime kernel folder (ctrl+H to show the hidden files). In order to be able to control the robot you have to enable the Franka Control Interface (FCI) on your robot. Therefore, go to the [Franka World](https://www.franka.de/franka-world) website and log in. Then check the FCI addon for your robot and download it onto the robot (https://yourRobotsIP/admin/world). For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/).
 
 
 ## Install the ROS Package <a name="installpackage"></a>
