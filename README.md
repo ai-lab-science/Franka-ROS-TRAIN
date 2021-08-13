@@ -17,11 +17,18 @@ This repository contains all the information required to start remote controllin
 
 Prerequisites are 
 
-- [Ubuntu 18.04](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
-- [ROS Melodic](http://wiki.ros.org/melodic/Installation/Ubuntu)
+- [Ubuntu 20.04](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
+- [ROS Noetic](http://wiki.ros.org/noetic/Installation/Ubuntu)
 
-Also, you require to install libfranka as well as franka_ros. Check out the [wiki](../../wiki/ROS-Franka-Installation-instructions) for further information. For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/). Check out the [wiki](../../wiki/Setup-of-the-Optitrack-System) for further information.
-
+Also, you require to install libfranka as well as franka_ros. Check out the offcial [webpage](https://frankaemika.github.io/docs/installation_linux.html) for further information. You will notice that the instructions require you to install a [realtime kernel](https://mirrors.edge.kernel.org/pub/linux/kernel/projects/rt/). Therefore checkout your current kernel version with
+```bash
+uname -r
+```
+and choose a realtime kernel closest to your current one. The kernel version and major revision number should be the same. Also, since kernel version 5, you require to set 
+```
+CONFIG_SYSTEM_TRUSTED_KEYS=""
+```
+within the hidden .config file within your realtime kernel folder (ctrl+H to show the hidden files). In order to be able to control the robot you have to enable the Franka Control Interface (FCI) on your robot. Therefore, go to the [Franka World](https://www.franka.de/franka-world) website and log in. Then check the FCI addon for your robot and download it onto the robot (https://yourRobotsIP/admin/world). For tracking your movements for remote control you need a tracking system, e.g. [Optitrack](https://optitrack.com/). In order to send the data into the ROS system, the OptiTrack system has to be within the same network and the [vrpn_client_ros package](http://wiki.ros.org/vrpn_client_ros) is required. Also make sure that vrpn data streaming is enabled within [Motive](https://v22.wiki.optitrack.com/index.php?title=Data_Streaming). Finally, we need to install moveit by following the instructions stated [here](https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html).
 
 
 ## Install the ROS Package <a name="installpackage"></a>
@@ -36,9 +43,9 @@ cd ~/catkin_ws/src
 Clone the repository to the source folder and build it.
 
 ````bash
-git clone https://github.com/NRottmann/ROS_PANDA
+git clone https://github.com/ai-lab-science/Franka-ROS-TRAIN
 cd ~/catkin_ws
-catkin_make
+catkin build
 ````
 
 
